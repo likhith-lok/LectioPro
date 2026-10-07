@@ -7,72 +7,183 @@
 
 console.log("Current frame URL:", window.location.href);
 
-function applyDarkMode(enabled) {
-    document.body.classList.toggle("dark-mode", enabled);
+const DEFAULT_PREFERENCES = {
+    translationEnabled: true,
+    modernUiEnabled: true,
+    darkModeEnabled: true
+};
+const stylesheetId = "lectiopro-stylesheet";
+const preferences = { ...DEFAULT_PREFERENCES };
+// Retain source text so disabling translation restores the page without a reload.
+const translationOriginals = new WeakMap();
+// Keep editable fields and user-written message threads in their original language.
+const translationSkipSelector = [
+    "script", "style", "noscript", "textarea", "input", "select", "option",
+    "[contenteditable]", ".message-thread-message"
+].join(",");
+// Match full phrases before shorter dictionary words.
+const dictionaryEntries = Object.entries(dictionary)
+    .sort(([left], [right]) => right.length - left.length);
+const dictionaryLookup = new Map(
+    dictionaryEntries.map(([source, translated]) => [source.toLocaleLowerCase(), translated])
+);
+const dictionaryPattern = dictionaryEntries.length
+    ? new RegExp(
+        `(^|[^\\p{L}\\p{N}_])(${dictionaryEntries
+            .map(([source]) => source.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
+            .join("|")})(?=$|[^\\p{L}\\p{N}_])`,
+        "giu"
+    )
+    : null;
+let translationEnabled = false;
+let translationObserver;
+
+function translateText(text) {
+    if (!dictionaryPattern) return text;
+
+    dictionaryPattern.lastIndex = 0;
+    return text.replace(dictionaryPattern, (match, prefix, source) =>
+        `${prefix}${dictionaryLookup.get(source.toLocaleLowerCase())}`
+    );
 }
 
-chrome.storage.local.get({ darkModeEnabled: false }, (settings) => {
-    if (chrome.runtime.lastError) {
-        console.error("LectioPro could not load the dark mode setting:", chrome.runtime.lastError.message);
+function isTranslatableTextNode(node) {
+    const parent = node.parentElement;
+    return Boolean(parent && !parent.closest(translationSkipSelector));
+}
+
+function restoreTranslation(node) {
+    const previous = translationOriginals.get(node);
+    if (previous && node.nodeValue === previous.translated) {
+        node.nodeValue = previous.original;
+    }
+    translationOriginals.delete(node);
+}
+
+function translateTextNode(node) {
+    const current = node.nodeValue;
+    const previous = translationOriginals.get(node);
+    const original = previous && current === previous.translated
+        ? previous.original
+        : current;
+
+    if (!translationEnabled) {
+        restoreTranslation(node);
         return;
     }
 
-    applyDarkMode(settings.darkModeEnabled === true);
+    const translated = translateText(original);
+    if (translated === original) {
+        translationOriginals.delete(node);
+        return;
+    }
+
+    translationOriginals.set(node, { original, translated });
+    if (current !== translated) {
+        node.nodeValue = translated;
+    }
+}
+
+function forEachTranslatableText(root, callback) {
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+            return isTranslatableTextNode(node)
+                ? NodeFilter.FILTER_ACCEPT
+                : NodeFilter.FILTER_REJECT;
+        }
+    });
+    let node;
+
+    while ((node = walker.nextNode())) {
+        callback(node);
+    }
+}
+
+function setTranslation(enabled) {
+    translationEnabled = enabled;
+    if (enabled) {
+        forEachTranslatableText(document.body, translateTextNode);
+        if (!translationObserver) {
+            translationObserver = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === "characterData") {
+                        if (isTranslatableTextNode(mutation.target)) {
+                            translateTextNode(mutation.target);
+                        } else {
+                            restoreTranslation(mutation.target);
+                        }
+                        return;
+                    }
+
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.nodeType === Node.TEXT_NODE) {
+                            if (isTranslatableTextNode(node)) {
+                                translateTextNode(node);
+                            } else {
+                                restoreTranslation(node);
+                            }
+                        } else if (node.nodeType === Node.ELEMENT_NODE &&
+                            !node.matches(translationSkipSelector) &&
+                            !node.closest(translationSkipSelector)) {
+                            forEachTranslatableText(node, translateTextNode);
+                        }
+                    });
+                });
+            });
+            translationObserver.observe(document.body, {
+                childList: true,
+                characterData: true,
+                subtree: true
+            });
+        }
+        return;
+    }
+
+    if (translationObserver) {
+        translationObserver.disconnect();
+        translationObserver = undefined;
+    }
+    forEachTranslatableText(document.body, translateTextNode);
+}
+
+function applyPreferences() {
+    const rawLectio = preferences.modernUiEnabled === true;
+    let stylesheet = document.getElementById(stylesheetId);
+
+    if (rawLectio && stylesheet) {
+        stylesheet.remove();
+    } else if (!rawLectio && !stylesheet) {
+        stylesheet = document.createElement("link");
+        stylesheet.id = stylesheetId;
+        stylesheet.rel = "stylesheet";
+        stylesheet.href = chrome.runtime.getURL("forside.css");
+        document.head.appendChild(stylesheet);
+    }
+
+    document.body.classList.toggle("dark-mode", !rawLectio && preferences.darkModeEnabled === true);
+    setTranslation(!rawLectio && preferences.translationEnabled === true);
+}
+
+chrome.storage.local.get(DEFAULT_PREFERENCES, (settings) => {
+    if (chrome.runtime.lastError) {
+        console.error("LectioPro could not load preferences:", chrome.runtime.lastError.message);
+        return;
+    }
+
+    Object.assign(preferences, settings);
+    applyPreferences();
 });
 
 chrome.storage.onChanged.addListener((changes, areaName) => {
-    if (areaName === "local" && changes.darkModeEnabled) {
-        applyDarkMode(changes.darkModeEnabled.newValue === true);
-    }
-});
+    if (areaName !== "local") return;
 
-if (window.location.pathname.endsWith("forside.aspx")) {
-    const el = document.querySelector(".ls-master-header-institution-name");
-    if (el) {
-        el.textContent = "KOLDING GYMNASIUM";
-        el.classList.add("lp-header-name");
-    }
-}
-
-
-function translateText(text) {
-    const trimmed = text.trim();
-
-    // 1. Dictionary translation
-    if (dictionary[trimmed]) {
-        return dictionary[trimmed];
-    }
-
-    // 2. Fallback translation (local)
-    return localTranslate(trimmed);
-}
-
-function localTranslate(text) {
-    // Example: split by spaces and translate known fragments
-    const words = text.split(" ");
-    const translatedWords = words.map(w => dictionary[w] || w);
-    return translatedWords.join(" ");
-}
-
-function translatePage() {
-    const walker = document.createTreeWalker(
-        document.body,
-        NodeFilter.SHOW_TEXT,
-        null,
-        false
-    );
-
-    let node;
-    while ((node = walker.nextNode())) {
-        const original = node.nodeValue.trim();
-        if (original.length === 0) continue;
-
-        const translated = translateText(original);
-        if (translated !== original) {
-            node.nodeValue = translated;
+    Object.entries(changes).forEach(([key, change]) => {
+        if (Object.prototype.hasOwnProperty.call(preferences, key)) {
+            preferences[key] = change.newValue;
         }
-    }
-}
+    });
+    applyPreferences();
+});
 
 //function wipeForside() {
 //    document.body.innerHTML = "";
@@ -149,19 +260,3 @@ function loadForsideData(original) {
     parseAssignments(original);
     parseMessages(original);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-if (window.location.pathname.startsWith("https://www.lectio.dk/")) {
-    translatePage();
-}
-

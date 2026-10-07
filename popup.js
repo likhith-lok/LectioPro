@@ -1,5 +1,14 @@
-const darkModeToggle = document.getElementById("darkModeEnabled");
+const DEFAULT_PREFERENCES = {
+    translationEnabled: true,
+    modernUiEnabled: true,
+    darkModeEnabled: true
+};
+
 const status = document.getElementById("status");
+const toggles = Object.entries(DEFAULT_PREFERENCES).map(([key]) => ({
+    key,
+    element: document.getElementById(key)
+}));
 
 function setStatus(message, isError = false) {
     status.textContent = message;
@@ -10,34 +19,48 @@ function updatePopupTheme(enabled) {
     document.documentElement.classList.toggle("dark-mode", enabled);
 }
 
-chrome.storage.local.get({ darkModeEnabled: false }, (settings) => {
+function updatePopup(settings) {
+    toggles.forEach(({ key, element }) => {
+        element.checked = settings[key] === true;
+        element.disabled = false;
+    });
+    updatePopupTheme(settings.darkModeEnabled === true);
+}
+
+chrome.storage.local.get(DEFAULT_PREFERENCES, (settings) => {
     if (chrome.runtime.lastError) {
         setStatus("Could not load preferences.", true);
         console.error("LectioPro could not load preferences:", chrome.runtime.lastError.message);
         return;
     }
 
-    darkModeToggle.checked = settings.darkModeEnabled === true;
-    updatePopupTheme(darkModeToggle.checked);
+    updatePopup(settings);
 });
 
-darkModeToggle.addEventListener("change", () => {
-    const enabled = darkModeToggle.checked;
-    darkModeToggle.disabled = true;
-    setStatus("Saving...");
+toggles.forEach(({ key, element }) => {
+    element.disabled = true;
+    element.addEventListener("change", () => {
+        const enabled = element.checked;
+        element.disabled = true;
+        setStatus("Saving...");
 
-    chrome.storage.local.set({ darkModeEnabled: enabled }, () => {
-        darkModeToggle.disabled = false;
+        chrome.storage.local.set({ [key]: enabled }, () => {
+            element.disabled = false;
 
-        if (chrome.runtime.lastError) {
-            darkModeToggle.checked = !enabled;
-            updatePopupTheme(darkModeToggle.checked);
-            setStatus("Could not save this preference.", true);
-            console.error("LectioPro could not save the dark mode setting:", chrome.runtime.lastError.message);
-            return;
-        }
+            if (chrome.runtime.lastError) {
+                element.checked = !enabled;
+                if (key === "darkModeEnabled") {
+                    updatePopupTheme(!enabled);
+                }
+                setStatus("Could not save this preference.", true);
+                console.error(`LectioPro could not save ${key}:`, chrome.runtime.lastError.message);
+                return;
+            }
 
-        updatePopupTheme(enabled);
-        setStatus(enabled ? "Dark appearance is on." : "Dark appearance is off.");
+            if (key === "darkModeEnabled") {
+                updatePopupTheme(enabled);
+            }
+            setStatus("Preferences saved.");
+        });
     });
 });

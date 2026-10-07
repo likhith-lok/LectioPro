@@ -23,10 +23,18 @@
         "dictionary.js",
         "pro.js"
       ],
-      "css": [
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
         "forside.css"
       ],
-      "run_at": "document_idle"
+      "matches": [
+        "https://lectio.dk/*",
+        "https://www.lectio.dk/*"
+      ]
     }
   ],
   "action": {
