@@ -1,26 +1,677 @@
-#modern-forside {
-    font-family: Inter, sans-serif;
-    padding: 20px;
+/* Shared colors and type keep the refreshed pages consistent. */
+body {
+    --lp-page: #f1f4f8 !important;
+    --lp-surface: #ffffff !important;
+    --lp-text: #202c3c !important;
+    --lp-muted: #748196 !important;
+    --lp-border: #e0e6ee !important;
+    --lp-accent: #168c7b !important;
+    --lp-hover: #f0f8f6 !important;
+
+    background:
+        radial-gradient(ellipse at 4% 10%, rgb(22 140 123 / 9%), transparent 30%),
+        radial-gradient(ellipse at 96% 0%, rgb(91 111 208 / 8%), transparent 28%),
+        var(--lp-page) !important;
+    color: var(--lp-text) !important;
+    font-family: "Segoe UI", Arial, sans-serif !important;
 }
 
-#modern-forside .card {
-    background: #ffffff;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+/* Give Lectio's existing top bar a strong, polished visual anchor. */
+.ls-master-header-container {
+    background: linear-gradient(115deg, #14263e, #203b5c) !important;
+    border: 0 !important;
+    box-shadow: 0 3px 14px rgb(19 39 65 / 18%) !important;
 }
 
+.ls-master-header,
+.ls-master-header-institution,
+.ls-master-header-institution-name {
+    color: #f6f9fc !important;
+}
 
 .ls-master-header-institution-name {
-    color: #000000 !important;
-    font-family: Inter, sans-serif !important;
-    font-size: 50px !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.3px;
+    font-family: "Segoe UI", Arial, sans-serif !important;
+    font-size: 19px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.09em !important;
 }
 
-/* Dark mode */
-body.dark-mode .ls-master-header-institution-name {
-    color: #e5e5e5 !important; /* soft white */
+.ls-master-header-container a,
+.ls-master-header-container select {
+    color: #f6f9fc !important;
+}
+
+.ls-master-header-container select {
+    border: 1px solid rgb(255 255 255 / 24%) !important;
+    border-radius: 6px !important;
+    background-color: rgb(255 255 255 / 10%) !important;
+}
+
+.ls-master-header-container select option {
+    background: #ffffff !important;
+    color: #202c3c !important;
+}
+
+/* Keep the toolbar in place, but make its controls feel intentional. */
+.lectioToolbar {
+    background-color: var(--lp-surface) !important;
+    border-color: var(--lp-border) !important;
+    box-shadow: 0 2px 7px rgb(25 42 65 / 5%) !important;
+}
+
+.lectioToolbar .buttonoutlined a,
+.lectioToolbar .buttonlink a {
+    border-radius: 7px !important;
+    color: var(--lp-text) !important;
+    font-weight: 600 !important;
+}
+
+.lectioToolbar a,
+.ls-subnav-container a {
+    border-radius: 7px !important;
+    transition: background-color 150ms ease, color 150ms ease, transform 150ms ease !important;
+}
+
+.lectioToolbar a:hover,
+.ls-subnav-container a:hover {
+    background: var(--lp-hover) !important;
+    color: var(--lp-accent) !important;
+}
+
+.lectioToolbar a:hover {
+    transform: translateY(-1px);
+}
+
+/* Preserve the page structure while improving its hierarchy and contrast. */
+.ls-content-container,
+#contenttable,
+#masterContent,
+.ls-dashboard {
+    color: var(--lp-text) !important;
+}
+
+#masterContent {
+    background: transparent !important;
+}
+
+.ls-master-pageheader {
+    border-bottom: 1px solid var(--lp-border) !important;
+    background: transparent !important;
+}
+
+.maintitle {
+    color: var(--lp-text) !important;
+    font-size: 1.35em !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.025em !important;
+}
+
+/* Crisp white cards with a softer lift separate each existing dashboard area. */
+.lf-island.ls-island-elevated {
+    --lp-card-accent: #168c7b;
+
+    border: 1px solid rgb(213 222 233 / 88%) !important;
+    border-top: 3px solid var(--lp-card-accent) !important;
+    border-radius: 12px !important;
+    background:
+        linear-gradient(145deg, color-mix(in srgb, var(--lp-card-accent) 5%, white), white 38%) !important;
+    box-shadow: 0 8px 25px rgb(35 54 78 / 7%), 0 2px 5px rgb(35 54 78 / 4%) !important;
+    transition: box-shadow 160ms ease, border-color 160ms ease !important;
+}
+
+/* Add a distinct color to each existing dashboard island, without moving it. */
+.lf-island.ls-island-elevated:has(#s_m_Content_Content_LektierIsland_pa) {
+    --lp-card-accent: #7856c7;
+}
+
+.lf-island.ls-island-elevated:has(#s_m_Content_Content_ElevOpgaveAfleveringerIsland_pa) {
+    --lp-card-accent: #e38a35;
+}
+
+.lf-island.ls-island-elevated:has(#s_m_Content_Content_AktuelInformationIsland_pa) {
+    --lp-card-accent: #3984d6;
+}
+
+.lf-island.ls-island-elevated:has(#s_m_Content_Content_kommIsland_pa) {
+    --lp-card-accent: #d45481;
+}
+
+.lf-island.ls-island-elevated:has(#s_m_Content_Content_skemaIsland_pa) {
+    --lp-card-accent: #168c7b;
+}
+
+.lf-island.ls-island-elevated:hover {
+    border-color: #c7d6e4 !important;
+    border-top-color: var(--lp-card-accent) !important;
+    box-shadow: 0 12px 30px rgb(35 54 78 / 11%), 0 2px 6px rgb(35 54 78 / 5%) !important;
+}
+
+.islandContent {
+    color: var(--lp-text) !important;
+}
+
+.dashboardLinkHeader,
+.dashboardTextHeader {
+    border-left: 3px solid var(--lp-card-accent, var(--lp-accent)) !important;
+    color: var(--lp-text) !important;
+    font-size: 1.04em !important;
+    font-weight: 700 !important;
+    padding-left: 9px !important;
+}
+
+.dashboardLinkHeader a,
+.dashboardLinkHeaderText {
+    color: var(--lp-text) !important;
+    font-weight: 700 !important;
+}
+
+.dashboardLinkHeaderInfoText {
+    color: var(--lp-card-accent, var(--lp-accent)) !important;
+    font-size: 0.82em !important;
+    font-weight: 600 !important;
+}
+
+.dashboard tr + tr td {
+    border-top: 1px solid var(--lp-border) !important;
+}
+
+.dashboard tr:hover td {
+    background-color: var(--lp-hover) !important;
+}
+
+.dashboard td {
+    color: var(--lp-text) !important;
+}
+
+.dashboard td a {
+    color: var(--lp-accent) !important;
+    font-weight: 500 !important;
+    text-decoration-color: transparent !important;
+    text-underline-offset: 3px !important;
+}
+
+.dashboard td a:hover {
+    color: #0f6f62 !important;
+    text-decoration: underline !important;
+}
+
+/* Lesson blocks get a stronger accent without changing the timetable layout. */
+.s2skemabrik {
+    border: 1px solid #dce5ed !important;
+    border-left: 4px solid #168c7b !important;
+    border-radius: 9px !important;
+    background: linear-gradient(110deg, #ffffff, #f3faf8) !important;
+    box-shadow: 0 3px 10px rgb(35 54 78 / 6%) !important;
+    color: var(--lp-text) !important;
+    transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease !important;
+}
+
+.s2skemabrik:hover {
+    border-color: #b7d9d2 !important;
+    background: linear-gradient(110deg, #ffffff, #f0f8f6) !important;
+    box-shadow: 0 5px 13px rgb(35 88 79 / 10%) !important;
+    transform: translateY(-1px);
+}
+
+/* Optional lessons get their own amber cue; regular lessons stay teal. */
+.s2skemabrik.s2optional {
+    border-left-color: #e38a35 !important;
+    background: linear-gradient(110deg, #ffffff, #fff8ef) !important;
+}
+
+.s2skemabrik.s2optional:hover {
+    border-color: #edd2b3 !important;
+    background: linear-gradient(110deg, #ffffff, #fff3e4) !important;
+}
+
+.s2skemabrikcontent {
+    color: var(--lp-text) !important;
+    line-height: 1.5 !important;
+}
+
+.s2skemabrikcontent [data-lectiocontextcard] {
+    color: #176b66 !important;
+    font-weight: 700 !important;
+}
+
+/* Active sub-navigation gets a clear marker while links keep their positions. */
+.ls-subnav-active a {
+    background: #e6f4f1 !important;
+    box-shadow: inset 0 -2px 0 var(--lp-accent) !important;
+    color: #126e63 !important;
+    font-weight: 700 !important;
+}
+
+a:focus-visible {
+    outline: 2px solid var(--lp-accent) !important;
+    outline-offset: 2px !important;
+}
+
+/* These variables also support a dark-mode class if one is enabled later. */
+body.dark-mode {
+    --lp-page: #1d2229 !important;
+    --lp-surface: #252c35 !important;
+    --lp-text: #e8edf3 !important;
+    --lp-muted: #a4afbc !important;
+    --lp-border: #3a4552 !important;
+    --lp-accent: #61c9b6 !important;
+    --lp-hover: #303a46 !important;
+    color-scheme: dark;
+}
+
+body.dark-mode,
+body.dark-mode #masterContent,
+body.dark-mode .ls-master-container2,
+body.dark-mode .ls-content-container,
+body.dark-mode #contenttable,
+body.dark-mode .ls-dashboard {
+    background-color: var(--lp-page) !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .ls-master-header-container {
+    background: linear-gradient(115deg, #101a28, #172b43) !important;
+}
+
+body.dark-mode .lectioToolbar,
+body.dark-mode .ls-master-pageheader,
+body.dark-mode .ls-subnav-container,
+body.dark-mode #s_m_HeaderContent_subnav_div {
+    border-color: var(--lp-border) !important;
+    background-color: var(--lp-surface) !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .lectioToolbar a,
+body.dark-mode .ls-subnav-container a,
+body.dark-mode .ls-master-pageheader a {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .lectioToolbar a:hover,
+body.dark-mode .ls-subnav-container a:hover {
+    background-color: var(--lp-hover) !important;
+    color: var(--lp-accent) !important;
+}
+
+body.dark-mode .ls-master-pageheader .maintitle,
+body.dark-mode .ls-identity-container {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .lf-island.ls-island-elevated {
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--lp-card-accent) 14%, #252c35),
+        #252c35 42%
+    ) !important;
+}
+
+/* Cover both elevated and filled islands, including their visible headings. */
+body.dark-mode .lf-island,
+body.dark-mode .lf-island .islandContent,
+body.dark-mode .lf-island .islandHeaderContainer,
+body.dark-mode .lf-island .islandHeader,
+body.dark-mode .ls-card-filled {
+    border-color: var(--lp-border) !important;
+    background: var(--lp-surface) !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .lf-island.ls-island-elevated {
+    background: linear-gradient(
+        145deg,
+        color-mix(in srgb, var(--lp-card-accent) 14%, #252c35),
+        #252c35 42%
+    ) !important;
+}
+
+/* Restyle grid tables and empty states used on assignments and absence pages. */
+body.dark-mode .ls-table-wrapper,
+body.dark-mode .ls-table-layout2,
+body.dark-mode .lf-grid,
+body.dark-mode .ls-table-layout2 tbody,
+body.dark-mode .ls-table-layout2 tr,
+body.dark-mode .ls-table-layout2 td,
+body.dark-mode .ls-table-layout2 th {
+    border-color: var(--lp-border) !important;
+    background-color: var(--lp-surface) !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .ls-table-layout2 th {
+    background-color: #303b49 !important;
+}
+
+body.dark-mode .ls-table-layout2 tr:nth-child(even) td {
+    background-color: #29323d !important;
+}
+
+body.dark-mode .ls-table-layout2 a {
+    color: var(--lp-accent) !important;
+}
+
+body.dark-mode .noRecord,
+body.dark-mode .norecord {
+    background-color: transparent !important;
+    background-image: none !important;
+    color: var(--lp-muted) !important;
+}
+
+body.dark-mode .title-large {
+    color: var(--lp-accent) !important;
+}
+
+/* Fixed schedule headers use inline white backgrounds, so override them directly. */
+body.dark-mode .timevertical .table-col-fixed,
+body.dark-mode .timevertical .table-col-fixed-right,
+body.dark-mode .timevertical .table-row-fixed,
+body.dark-mode .timevertical .colHeader,
+body.dark-mode .timevertical .monthCol,
+body.dark-mode .timevertical .weekCol,
+body.dark-mode .timevertical .elevtidcol {
+    border-color: var(--lp-border) !important;
+    background-color: #252c35 !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .timevertical,
+body.dark-mode .timevertical tbody,
+body.dark-mode .timevertical tr,
+body.dark-mode .timevertical td,
+body.dark-mode .timevertical th {
+    border-color: var(--lp-border) !important;
+    background-color: #252c35 !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .timevertical .colHeader,
+body.dark-mode .timevertical .table-row-fixed.colHeader {
+    background-color: #303b49 !important;
+}
+
+/* Match the dark card surface to the timetable and its module guides. */
+body.dark-mode .s2skema {
+    border-color: var(--lp-border) !important;
+    background-color: var(--lp-surface) !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .s2skema tr,
+body.dark-mode .s2skema td,
+body.dark-mode .s2skema th {
+    border-color: var(--lp-border) !important;
+    background-color: #252c35 !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .s2weekHeader,
+body.dark-mode .s2dayHeader,
+body.dark-mode .s2infoHeader,
+body.dark-mode .s2module-info {
+    background-color: #303b49 !important;
+    color: var(--lp-text) !important;
+}
+
+/* The timetable's left gutter has separate positioned module layers. */
+body.dark-mode .s2skemabrikcontainer {
+    background-color: transparent !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .s2module-bg {
+    border-color: var(--lp-border) !important;
+    background-color: #29323d !important;
+    background-image: none !important;
+}
+
+body.dark-mode .s2module-info,
+body.dark-mode .s2module-info > div {
+    background-color: #303b49 !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .s2SkemaDivider {
+    border-color: var(--lp-border) !important;
+}
+
+body.dark-mode .s2skema a {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .s2skema .s2skemabrik {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .s2skema .s2skemabrik.s2cancelled {
+    background: #492f37 !important;
+}
+
+body.dark-mode .s2skema .s2skemabrik.s2changed {
+    background: #493c2c !important;
+}
+
+body.dark-mode .s2skema .s2skemabrik.s2optional {
+    background: #38332d !important;
+}
+
+body.dark-mode .s2skema .s2skemabrik.s2normal {
+    background: #263b3a !important;
+}
+
+body.dark-mode .s2skema .s2skemabrikcontent,
+body.dark-mode .s2skema .separator-undervalue {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .s2skema .s2skemabrikcontent [data-lectiocontextcard] {
+    color: #8cddd0 !important;
+}
+
+body.dark-mode .dashboard,
+body.dark-mode .dashboard tbody,
+body.dark-mode .dashboard tr,
+body.dark-mode .dashboard td,
+body.dark-mode .dashboard th {
+    color: var(--lp-text) !important;
+}
+
+/* Previous dashboard's compact tables share the same dark color tokens. */
+body.dark-mode .lf-island .islandContent,
+body.dark-mode .dashboard,
+body.dark-mode .dashboard tbody,
+body.dark-mode .dashboard tr,
+body.dark-mode .dashboard td,
+body.dark-mode .dashboard th {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .dashboard tr + tr td {
+    border-color: var(--lp-border) !important;
+}
+
+body.dark-mode .dashboard tr:hover td {
+    background-color: var(--lp-hover) !important;
+}
+
+body.dark-mode .dashboard td a,
+body.dark-mode .dashboardLinkHeader a,
+body.dark-mode .dashboardLinkHeaderText,
+body.dark-mode .s2skemabrikcontent [data-lectiocontextcard] {
+    color: var(--lp-accent) !important;
+}
+
+body.dark-mode .dashboardLinkHeaderInfoText {
+    color: var(--lp-card-accent, var(--lp-accent)) !important;
+}
+
+body.dark-mode .dashboardTextHeader {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .lf-island.ls-island-elevated:hover {
+    border-top-color: var(--lp-card-accent) !important;
+}
+
+body.dark-mode .s2skemabrik {
+    background: linear-gradient(110deg, #252c35, #293542) !important;
+    border-color: var(--lp-border) !important;
+}
+
+body.dark-mode .s2skemabrik.s2optional {
+    border-left-color: #f0ad63 !important;
+    background: linear-gradient(110deg, #252c35, #38332d) !important;
+}
+
+body.dark-mode .s2skemabrik:hover {
+    background: linear-gradient(110deg, #293542, #303e4c) !important;
+}
+
+body.dark-mode .s2skemabrikcontent [data-lectiocontextcard] {
+    color: #8cddd0 !important;
+}
+
+body.dark-mode .s2skemabrikcontent {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .dashboard td.attention,
+body.dark-mode .dashboard td.attention a {
+    color: #ffc46b !important;
+}
+
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea,
+body.dark-mode button {
+    border-color: var(--lp-border) !important;
+    background-color: var(--lp-surface) !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .ls-master-header-container select {
+    background-color: #223248 !important;
+    color: #f6f9fc !important;
+}
+
+body.dark-mode .ls-master-header-container select option {
+    background-color: #223248 !important;
+    color: #f6f9fc !important;
+}
+
+body.dark-mode .ls-mobil-footer,
+body.dark-mode .ls-mobil-menu,
+body.dark-mode .ls-mobil-mere-sheet-menu {
+    border-color: var(--lp-border) !important;
+    background-color: var(--lp-surface) !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .ls-mobil-menu a,
+body.dark-mode .ls-mobil-mere-sheet-menu a {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .ls-subnav-active a {
+    background: #263e40 !important;
+    color: #9be0d6 !important;
+}
+
+/* Compact the existing dashboard so fixed Lectio card heights do not leave gaps. */
+.ls-std-island-layout-col > .lf-island.mediumBlockFixed.defaultBlockHeight {
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    margin-bottom: 12px !important;
+}
+
+.lf-island.noheader > .islandHeaderContainer {
+    display: none !important;
+}
+
+.lf-island .islandContent {
+    padding: 12px 14px !important;
+}
+
+.dashboardLinkHeader,
+.dashboardTextHeader {
+    margin: 0 0 7px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+    line-height: 1.35 !important;
+}
+
+.dashboard {
+    border-spacing: 0 !important;
+    font-size: 0.92em !important;
+    line-height: 1.35 !important;
+}
+
+.dashboard td,
+.dashboard th {
+    padding: 6px 7px !important;
+    line-height: 1.35 !important;
+}
+
+.dashboard tr + tr td {
+    padding-top: 7px !important;
+}
+
+.dashboard tr:first-child td {
+    padding-top: 5px !important;
+}
+
+.dashboardTextHeader:not(.dashboardLinkHeader) {
+    margin-top: 11px !important;
+}
+
+.s2skemabrikInnerContainer {
+    padding: 7px 9px !important;
+}
+
+.s2skemabrikcontent {
+    font-size: 0.94em !important;
+    line-height: 1.4 !important;
+}
+
+.ls-subnav-container .buttonlink a,
+.lectioToolbar .buttonoutlined a,
+.lectioToolbar .buttonlink a {
+    padding: 7px 10px !important;
+    line-height: 1.2 !important;
+}
+
+.ls-master-pageheader {
+    margin-bottom: 10px !important;
+}
+
+@media (max-width: 700px) {
+    .lf-island .islandContent {
+        padding: 10px !important;
+    }
+
+    .dashboard td,
+    .dashboard th {
+        padding: 5px !important;
+    }
+
+    .s2skemabrikInnerContainer {
+        padding: 6px 8px !important;
+    }
+}
+
+/* Reduce motion for users who have requested it in their device settings. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
 }

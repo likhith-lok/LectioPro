@@ -7,6 +7,25 @@
 
 console.log("Current frame URL:", window.location.href);
 
+function applyDarkMode(enabled) {
+    document.body.classList.toggle("dark-mode", enabled);
+}
+
+chrome.storage.local.get({ darkModeEnabled: false }, (settings) => {
+    if (chrome.runtime.lastError) {
+        console.error("LectioPro could not load the dark mode setting:", chrome.runtime.lastError.message);
+        return;
+    }
+
+    applyDarkMode(settings.darkModeEnabled === true);
+});
+
+chrome.storage.onChanged.addListener((changes, areaName) => {
+    if (areaName === "local" && changes.darkModeEnabled) {
+        applyDarkMode(changes.darkModeEnabled.newValue === true);
+    }
+});
+
 if (window.location.pathname.endsWith("forside.aspx")) {
     const el = document.querySelector(".ls-master-header-institution-name");
     if (el) {
@@ -145,9 +164,4 @@ function loadForsideData(original) {
 if (window.location.pathname.startsWith("https://www.lectio.dk/")) {
     translatePage();
 }
-
-if (window.location.pathname.endsWith("forside.aspx")) {
-    replaceForsideUI();
-}
-
 

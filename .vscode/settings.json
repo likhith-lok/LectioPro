@@ -1,0 +1,4 @@
+{
+    "inlineChat.defaultModel": "Codestral 22B Instruct (nvidia-nim)",
+    "CodeGPT.apiKey": "Nvidia"
+}

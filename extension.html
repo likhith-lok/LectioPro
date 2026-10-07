@@ -98,6 +98,31 @@
       #status.error {
         color: #383834;
       }
+
+      :root.dark-mode {
+        color-scheme: dark;
+        color: #e8edf3;
+        background: #1d252f;
+      }
+
+      :root.dark-mode .subtitle {
+        color: #a4afbc;
+      }
+
+      :root.dark-mode .setting {
+        border-color: #3a4552;
+        color: #e8edf3;
+      }
+
+      :root.dark-mode .setting input:checked {
+        border-color: #61c9b6;
+        background: #168c7b;
+      }
+
+      :root.dark-mode #status,
+      :root.dark-mode #status.error {
+        color: #a4afbc;
+      }
     </style>
   </head>
   <body>
@@ -114,7 +139,7 @@
     </label>
     <label class="setting" for="darkModeEnabled">
       <span>Dark appearance</span>
-      <input id="darkModeEnabled" type="checkbox">
+      <input id="darkModeEnabled" type="checkbox" aria-describedby="status">
     </label>
 
     <p class="subtitle">LectioPro version: 1.0.0     Dev:Likhith</p>
