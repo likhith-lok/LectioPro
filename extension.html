@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LectioPro Settings</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", Arial, sans-serif;
+        color: #282825;
+        background: #f6f5f2;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 320px;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 17px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .subtitle {
+        margin: 5px 0 20px;
+        color: #72716b;
+        font-size: 12px;
+      }
+
+      .setting {
+        display: flex;
+        min-height: 52px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        border-top: 1px solid #e6e4df;
+        color: #383834;
+        cursor: pointer;
+        font-size: 13px;
+      }
+
+      .setting input {
+        position: relative;
+        flex: 0 0 auto;
+        width: 34px;
+        height: 20px;
+        margin: 0;
+        appearance: none;
+        border: 1px solid #c9c7c0;
+        border-radius: 999px;
+        background: #e5e4df;
+        cursor: pointer;
+        transition: background-color 120ms ease, border-color 120ms ease;
+      }
+
+      .setting input::after {
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 1px 2px rgb(0 0 0 / 16%);
+        content: "";
+        transition: transform 120ms ease;
+      }
+
+      .setting input:checked {
+        border-color: #55544f;
+        background: #55544f;
+      }
+
+      .setting input:checked::after {
+        transform: translateX(14px);
+      }
+
+      .setting input:focus-visible {
+        outline: 2px solid #88867f;
+        outline-offset: 3px;
+      }
+
+      #status {
+        min-height: 16px;
+        margin: 14px 0 0;
+        color: #72716b;
+        font-size: 11px;
+      }
+
+      #status.error {
+        color: #383834;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Lectio English</h1>
+    <p class="subtitle">Display preferences</p>
+
+    <label class="setting" for="translationEnabled">
+      <span>Translate to English</span>
+      <input id="translationEnabled" type="checkbox">
+    </label>
+    <label class="setting" for="modernUiEnabled">
+      <span>Minimal interface</span>
+      <input id="modernUiEnabled" type="checkbox">
+    </label>
+    <label class="setting" for="darkModeEnabled">
+      <span>Dark appearance</span>
+      <input id="darkModeEnabled" type="checkbox">
+    </label>
+
+    <p class="subtitle">LectioPro version: 1.0.0     Dev:Likhith</p>
+
+    <p id="status" role="status" aria-live="polite"></p>
+    <script src="popup.js"></script>
+  </body>
+</html>

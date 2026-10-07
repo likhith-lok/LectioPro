@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "LectioPro",
+  "version": "1.0.0",
+  "description": "A Chrome extension that enhances the Lectio experience by providing additional features and improvements.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://lectio.dk/*",
+    "https://www.lectio.dk/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://lectio.dk/*",
+        "https://www.lectio.dk/*"
+      ],
+      "js": [
+        "dictionary.js",
+        "pro.js"
+      ],
+      "css": [
+        "forside.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "LectioPro settings",
+    "default_popup": "extension.html"
+  }
+}
