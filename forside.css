@@ -16,17 +16,25 @@ body {
     font-family: "Segoe UI", Arial, sans-serif !important;
 }
 
-/* Give Lectio's existing top bar a strong, polished visual anchor. */
+/* Keep the header light by default; dark mode overrides it below. */
 .ls-master-header-container {
-    background: linear-gradient(115deg, #14263e, #203b5c) !important;
+    background: linear-gradient(115deg, #ffffff, #f3f6fa) !important;
     border: 0 !important;
-    box-shadow: 0 3px 14px rgb(19 39 65 / 18%) !important;
+    box-shadow: 0 3px 14px rgb(19 39 65 / 8%) !important;
+}
+
+.ls-master-header-container #s_m_masterHeaderDiv,
+.ls-master-header-container .ls-master-header,
+.ls-master-header-container .ls-master-header-institution {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-image: none !important;
 }
 
 .ls-master-header,
 .ls-master-header-institution,
 .ls-master-header-institution-name {
-    color: #f6f9fc !important;
+    color: #202c3c !important;
 }
 
 .ls-master-header-institution-name {
@@ -38,13 +46,13 @@ body {
 
 .ls-master-header-container a,
 .ls-master-header-container select {
-    color: #f6f9fc !important;
+    color: #202c3c !important;
 }
 
 .ls-master-header-container select {
-    border: 1px solid rgb(255 255 255 / 24%) !important;
+    border: 1px solid #d6dee8 !important;
     border-radius: 6px !important;
-    background-color: rgb(255 255 255 / 10%) !important;
+    background-color: #ffffff !important;
 }
 
 .ls-master-header-container select option {
@@ -303,35 +311,77 @@ body.dark-mode .ls-master-header-container select.yearselect option {
 
 /* Style the toolbar and its button wrappers, not just the outer nav element. */
 body.dark-mode #s_m_mastermenu.lectioToolbar,
+body.dark-mode #m_mastermenu.lectioToolbar,
 body.dark-mode #s_m_mastermenu.lectioToolbar > div,
+body.dark-mode #m_mastermenu.lectioToolbar > div,
+body.dark-mode #s_m_mastermenu.lectioToolbar > div > div,
+body.dark-mode #m_mastermenu.lectioToolbar > div > div,
 body.dark-mode #s_m_mastermenu .buttonoutlined,
+body.dark-mode #m_mastermenu .buttonoutlined,
 body.dark-mode #s_m_mastermenu .buttonlink,
-body.dark-mode #s_m_mastermenu .buttontext {
+body.dark-mode #m_mastermenu .buttonlink,
+body.dark-mode #s_m_mastermenu .buttontext,
+body.dark-mode #m_mastermenu .buttontext,
+body.dark-mode #s_m_mastermenu .buttonoutlined a,
+body.dark-mode #m_mastermenu .buttonoutlined a,
+body.dark-mode #s_m_mastermenu .buttonlink a,
+body.dark-mode #m_mastermenu .buttonlink a,
+body.dark-mode #s_m_mastermenu .buttontext a,
+body.dark-mode #m_mastermenu .buttontext a {
     border-color: #39485b !important;
-    background: #202b3b !important;
+    background-color: #202b3b !important;
     background-image: none !important;
     color: #dce5ef !important;
     box-shadow: none !important;
 }
 
 body.dark-mode #s_m_mastermenu .buttonoutlined a,
+body.dark-mode #m_mastermenu .buttonoutlined a,
 body.dark-mode #s_m_mastermenu .buttonlink a,
-body.dark-mode #s_m_mastermenu .buttontext a {
+body.dark-mode #m_mastermenu .buttonlink a,
+body.dark-mode #s_m_mastermenu .buttontext a,
+body.dark-mode #m_mastermenu .buttontext a {
     border-color: #46566b !important;
-    background: #29374a !important;
+    background-color: #29374a !important;
     background-image: none !important;
     color: #e6edf5 !important;
 }
 
 body.dark-mode #s_m_mastermenu .buttonoutlined a:hover,
+body.dark-mode #m_mastermenu .buttonoutlined a:hover,
 body.dark-mode #s_m_mastermenu .buttonlink a:hover,
-body.dark-mode #s_m_mastermenu .buttontext a:hover {
+body.dark-mode #m_mastermenu .buttonlink a:hover,
+body.dark-mode #s_m_mastermenu .buttontext a:hover,
+body.dark-mode #m_mastermenu .buttontext a:hover,
+body.dark-mode #s_m_mastermenu .buttonoutlined a:focus,
+body.dark-mode #m_mastermenu .buttonoutlined a:focus,
+body.dark-mode #s_m_mastermenu .buttonlink a:focus,
+body.dark-mode #m_mastermenu .buttonlink a:focus,
+body.dark-mode #s_m_mastermenu .buttontext a:focus,
+body.dark-mode #m_mastermenu .buttontext a:focus,
+body.dark-mode #s_m_mastermenu .buttonoutlined a:active,
+body.dark-mode #m_mastermenu .buttonoutlined a:active,
+body.dark-mode #s_m_mastermenu .buttonlink a:active,
+body.dark-mode #m_mastermenu .buttonlink a:active,
+body.dark-mode #s_m_mastermenu .buttontext a:active,
+body.dark-mode #m_mastermenu .buttontext a:active,
+body.dark-mode #s_m_mastermenu .buttonoutlined a[current-page],
+body.dark-mode #m_mastermenu .buttonoutlined a[current-page],
+body.dark-mode #s_m_mastermenu .buttonlink a[current-page],
+body.dark-mode #m_mastermenu .buttonlink a[current-page],
+body.dark-mode #s_m_mastermenu .buttontext a[current-page],
+body.dark-mode #m_mastermenu .buttontext a[current-page] {
     border-color: #61c9b6 !important;
-    background: #34465b !important;
+    background-color: #34465b !important;
+    background-image: none !important;
     color: #8cddd0 !important;
 }
 
 body.dark-mode #s_m_mastermenu .ls-fonticon {
+    color: inherit !important;
+}
+
+body.dark-mode #m_mastermenu .ls-fonticon {
     color: inherit !important;
 }
 
@@ -388,7 +438,7 @@ body.dark-mode .ls-master-pageheader,
 body.dark-mode .ls-subnav-container,
 body.dark-mode #s_m_HeaderContent_subnav_div {
     border-color: var(--lp-border) !important;
-    background-color: var(--lp-surface) !important;
+    background-color: #202b3b !important;
     color: var(--lp-text) !important;
 }
 
