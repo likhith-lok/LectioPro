@@ -271,6 +271,116 @@ body.dark-mode .ls-dashboard {
 
 body.dark-mode .ls-master-header-container {
     background: linear-gradient(115deg, #101a28, #172b43) !important;
+    border: 0 !important;
+    color: #f6f9fc !important;
+}
+
+/* Lectio paints the inner header separately; keep it transparent over the gradient. */
+body.dark-mode .ls-master-header-container #s_m_masterHeaderDiv,
+body.dark-mode .ls-master-header-container .ls-master-header,
+body.dark-mode .ls-master-header-container .ls-master-header-institution {
+    border-color: transparent !important;
+    background: transparent !important;
+    background-image: none !important;
+    color: #f6f9fc !important;
+}
+
+body.dark-mode .ls-master-header-container .ls-master-header-institution-name,
+body.dark-mode .ls-master-header-container a {
+    color: #f6f9fc !important;
+}
+
+body.dark-mode .ls-master-header-container select.yearselect {
+    border: 1px solid #52647a !important;
+    background: #223248 !important;
+    color: #f6f9fc !important;
+}
+
+body.dark-mode .ls-master-header-container select.yearselect option {
+    background: #223248 !important;
+    color: #f6f9fc !important;
+}
+
+/* Style the toolbar and its button wrappers, not just the outer nav element. */
+body.dark-mode #s_m_mastermenu.lectioToolbar,
+body.dark-mode #s_m_mastermenu.lectioToolbar > div,
+body.dark-mode #s_m_mastermenu .buttonoutlined,
+body.dark-mode #s_m_mastermenu .buttonlink,
+body.dark-mode #s_m_mastermenu .buttontext {
+    border-color: #39485b !important;
+    background: #202b3b !important;
+    background-image: none !important;
+    color: #dce5ef !important;
+    box-shadow: none !important;
+}
+
+body.dark-mode #s_m_mastermenu .buttonoutlined a,
+body.dark-mode #s_m_mastermenu .buttonlink a,
+body.dark-mode #s_m_mastermenu .buttontext a {
+    border-color: #46566b !important;
+    background: #29374a !important;
+    background-image: none !important;
+    color: #e6edf5 !important;
+}
+
+body.dark-mode #s_m_mastermenu .buttonoutlined a:hover,
+body.dark-mode #s_m_mastermenu .buttonlink a:hover,
+body.dark-mode #s_m_mastermenu .buttontext a:hover {
+    border-color: #61c9b6 !important;
+    background: #34465b !important;
+    color: #8cddd0 !important;
+}
+
+body.dark-mode #s_m_mastermenu .ls-fonticon {
+    color: inherit !important;
+}
+
+/* Shared page toolbars use buttontext rather than the master-menu buttons. */
+body.dark-mode .ls-std-toolbar-filled,
+body.dark-mode .ls-std-toolbar-filled > div,
+body.dark-mode .ls-std-toolbar-filled .noWrap,
+body.dark-mode .ls-std-toolbar-filled .buttontext,
+body.dark-mode .ls-std-toolbar-filled .buttonoutlined,
+body.dark-mode .ls-std-toolbar-filled .buttonlink,
+body.dark-mode .ls-std-toolbar-filled .buttonfilled {
+    border-color: var(--lp-border) !important;
+    background: #202b3b !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+    box-shadow: none !important;
+}
+
+body.dark-mode .ls-std-toolbar-filled .buttontext a,
+body.dark-mode .ls-std-toolbar-filled .buttonoutlined a,
+body.dark-mode .ls-std-toolbar-filled .buttonlink a,
+body.dark-mode .ls-std-toolbar-filled .buttonfilled a {
+    border: 1px solid #46566b !important;
+    border-radius: 6px !important;
+    background: #29374a !important;
+    background-image: none !important;
+    color: #e6edf5 !important;
+    box-shadow: none !important;
+}
+
+body.dark-mode .ls-std-toolbar-filled .buttontext a:hover,
+body.dark-mode .ls-std-toolbar-filled .buttonoutlined a:hover,
+body.dark-mode .ls-std-toolbar-filled .buttonlink a:hover,
+body.dark-mode .ls-std-toolbar-filled .buttonfilled a:hover {
+    border-color: var(--lp-accent) !important;
+    background: #34465b !important;
+    color: #8cddd0 !important;
+}
+
+body.dark-mode .ls-std-toolbar-filled .ls-fonticon {
+    color: inherit !important;
+}
+
+body.dark-mode .ls-std-toolbar-filled select,
+body.dark-mode .ls-std-toolbar-filled input,
+body.dark-mode .ls-std-toolbar-filled textarea {
+    border-color: #46566b !important;
+    background-color: #182332 !important;
+    color: var(--lp-text) !important;
 }
 
 body.dark-mode .lectioToolbar,
@@ -361,6 +471,74 @@ body.dark-mode .norecord {
 
 body.dark-mode .title-large {
     color: var(--lp-accent) !important;
+}
+
+/* Message threads use their own surfaces rather than the standard Lectio cards. */
+body.dark-mode .message-thread-container,
+body.dark-mode .thread-header-container,
+body.dark-mode .thread-header-content,
+body.dark-mode .thread-header-buttons,
+body.dark-mode .message-thread-messages-container,
+body.dark-mode .message-container {
+    border-color: var(--lp-border) !important;
+    background: #202b3b !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+    box-shadow: none !important;
+}
+
+body.dark-mode .message-thread-message,
+body.dark-mode .message-thread-message-content,
+body.dark-mode .message,
+body.dark-mode .message-replysum-header-menu {
+    border-color: var(--lp-border) !important;
+    background: #263343 !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .message-thread-message-sender,
+body.dark-mode .thread-header-content-recipients,
+body.dark-mode .thread-header-container label,
+body.dark-mode .message-thread-container label {
+    color: #c1ccda !important;
+}
+
+body.dark-mode .message-thread-message-header {
+    border-color: var(--lp-border) !important;
+    color: #8cddd0 !important;
+    font-weight: 600 !important;
+}
+
+body.dark-mode .message-thread-message-content,
+body.dark-mode .message-thread-message-content *:not(a),
+body.dark-mode .message {
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .message-thread-container a,
+body.dark-mode .message-thread-messages-container a {
+    color: var(--lp-accent) !important;
+}
+
+body.dark-mode .message-thread-container .buttonicon a:hover,
+body.dark-mode .message-thread-messages-container .buttonicon a:hover {
+    background: #34465b !important;
+    color: #8cddd0 !important;
+}
+
+body.dark-mode .message-thread-messages-container .ls-table-layout1,
+body.dark-mode .message-thread-messages-container .ls-table-layout1 tbody,
+body.dark-mode .message-thread-messages-container .ls-table-layout1 tr,
+body.dark-mode .message-thread-messages-container .ls-table-layout1 td {
+    border-color: var(--lp-border) !important;
+    background: transparent !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .message-thread-messages-container .grayed-out {
+    color: var(--lp-muted) !important;
 }
 
 /* Fixed schedule headers use inline white backgrounds, so override them directly. */
