@@ -853,3 +853,214 @@ body.dark-mode .ls-subnav-active a {
         animation-iteration-count: 1 !important;
     }
 }
+
+/* Consistent sizing makes Lectio's existing layout feel calmer and tighter. */
+body {
+    font-size: 14px !important;
+    line-height: 1.45 !important;
+}
+
+.ls-master-header-container {
+    padding: 8px 18px !important;
+}
+
+.ls-master-header,
+#s_m_masterHeaderDiv {
+    min-height: 48px;
+}
+
+.ls-master-header-institution-name {
+    font-size: 17px !important;
+    letter-spacing: 0.07em !important;
+}
+
+.ls-master-header-container select,
+.lectioToolbar a,
+.ls-subnav-container a {
+    min-height: 34px !important;
+}
+
+.lectioToolbar {
+    padding: 7px 14px !important;
+}
+
+.lectioToolbar > div {
+    gap: 6px !important;
+}
+
+.lectioToolbar .buttonoutlined a,
+.lectioToolbar .buttonlink a,
+.ls-subnav-container .buttonlink a {
+    padding: 7px 10px !important;
+    font-size: 0.93em !important;
+    line-height: 1.25 !important;
+}
+
+.ls-master-pageheader {
+    gap: 8px 16px !important;
+    padding: 12px 16px !important;
+}
+
+.maintitle {
+    font-size: 1.25em !important;
+    line-height: 1.3 !important;
+}
+
+.ls-dashboard,
+.ls-std-island-layout-ltr {
+    gap: 14px !important;
+}
+
+.ls-std-island-layout-col {
+    min-width: 0 !important;
+}
+
+.lf-island.ls-island-elevated {
+    border-radius: 11px !important;
+}
+
+.lf-island .islandContent {
+    padding: 12px !important;
+}
+
+.islandHeaderContainer {
+    min-height: 0 !important;
+    padding: 10px 12px 0 !important;
+}
+
+.islandHeader,
+.dashboardLinkHeader,
+.dashboardTextHeader {
+    font-size: 0.98em !important;
+    line-height: 1.35 !important;
+}
+
+.dashboardLinkHeader,
+.dashboardTextHeader {
+    margin-bottom: 6px !important;
+}
+
+.dashboard,
+.ls-table-layout1,
+.ls-table-layout2 {
+    font-size: 0.92em !important;
+    line-height: 1.4 !important;
+}
+
+.dashboard td,
+.dashboard th,
+.ls-table-layout1 td,
+.ls-table-layout1 th,
+.ls-table-layout2 td,
+.ls-table-layout2 th {
+    padding: 7px 8px !important;
+    line-height: 1.4 !important;
+}
+
+.ls-table-wrapper {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    overscroll-behavior-x: contain;
+}
+
+.ls-control-textbox,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+    max-width: 100%;
+    min-height: 34px;
+    border-radius: 6px !important;
+    font: inherit !important;
+}
+
+textarea {
+    padding: 9px 10px !important;
+    line-height: 1.5 !important;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--lp-accent);
+}
+
+.buttontext a,
+.buttonoutlined a,
+.buttonlink a,
+.buttonfilled a,
+.buttonicon a {
+    border-radius: 6px !important;
+    line-height: 1.3 !important;
+    transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease !important;
+}
+
+.message-thread-container {
+    border-radius: 11px !important;
+    padding: 14px !important;
+}
+
+.thread-header-container,
+.message-thread-message,
+.message-container,
+.message {
+    border-radius: 9px !important;
+}
+
+.thread-header-container {
+    gap: 12px !important;
+    padding: 12px !important;
+}
+
+.message-thread-message {
+    margin: 10px 0 !important;
+    padding: 12px !important;
+}
+
+.message-thread-message-content {
+    line-height: 1.65 !important;
+}
+
+@media (max-width: 700px) {
+    body {
+        font-size: 13px !important;
+    }
+
+    .ls-master-header-container {
+        padding: 7px 10px !important;
+    }
+
+    .lectioToolbar {
+        padding: 6px 8px !important;
+    }
+
+    .ls-master-pageheader {
+        padding: 10px !important;
+    }
+
+    .lf-island .islandContent {
+        padding: 10px !important;
+    }
+
+    .dashboard td,
+    .dashboard th,
+    .ls-table-layout1 td,
+    .ls-table-layout1 th,
+    .ls-table-layout2 td,
+    .ls-table-layout2 th {
+        padding: 6px !important;
+    }
+
+    .message-thread-container {
+        padding: 9px !important;
+    }
+
+    .thread-header-container,
+    .message-thread-message {
+        padding: 9px !important;
+    }
+}
