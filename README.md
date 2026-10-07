@@ -1,6 +1,6 @@
-# Kolding Gymnasium Browser Extension
+# LECTIOPRO
 
-This repository contains a custom browser extension built for students at Kolding Gymnasium.  
+This repository contains a custom browser extension built for students using lectio.dk
 The goal is simple: make everyday digital tasks a little easier, a little faster, and a lot less annoying.  
 The extension is lightweight, transparent, and fully open‑source so anyone can inspect, modify, or improve it.
 
