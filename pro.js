@@ -1,15 +1,16 @@
 
-import { dictionary } from "./dictionary.js";
+//import { dictionary } from "./dictionary.js";
 
 
 
 //document.querySelector(".ls-master-header-institution-name").style.display = "none";
 
+console.log("Current frame URL:", window.location.href);
 
 if (window.location.pathname.endsWith("forside.aspx")) {
     const el = document.querySelector(".ls-master-header-institution-name");
     if (el) {
-        el.textContent = "LectioPro";
+        el.textContent = "KOLDING GYMNASIUM";
         el.classList.add("lp-header-name");
     }
 }
@@ -54,33 +55,33 @@ function translatePage() {
     }
 }
 
-function wipeForside() {
-    document.body.innerHTML = "";
-}
+//function wipeForside() {
+//    document.body.innerHTML = "";
+//}
 
-function replaceForsideUI() {
-    const original = document.documentElement.cloneNode(true);
-    wipeForside();
-    buildForsideUI(original);
-}
+//function replaceForsideUI() {
+//    const original = document.documentElement.cloneNode(true);
+//    wipeForside();
+//    buildForsideUI(original);
+//}
 
-function buildForsideUI(original) {
-    const root = document.createElement("div");
-    root.id = "lp-forside";
-
-    root.innerHTML = `
-        <div class="lp-header">Dashboard</div>
-
-        <div class="lp-section" id="lp-today"></div>
-        <div class="lp-section" id="lp-assignments"></div>
-        <div class="lp-section" id="lp-messages"></div>
-    `;
-
-    document.body.appendChild(root);
-
-    // Fill sections with parsed data
-    loadForsideData(original);
-}
+//function buildForsideUI(original) {
+//    const root = document.createElement("div");
+//    root.id = "lp-forside";
+//
+//    root.innerHTML = `
+//        <div class="lp-header">Dashboard</div>
+//
+//        <div class="lp-section" id="lp-today"></div>
+//        <div class="lp-section" id="lp-assignments"></div>
+//        <div class="lp-section" id="lp-messages"></div>
+//    `;
+//
+//    document.body.appendChild(root);
+//
+//    // Fill sections with parsed data
+//    loadForsideData(original);
+//}
 
 function parseToday(original) {
     const todayBox = original.querySelector("#s_m_Content_s_m_DagligtIndhold");
@@ -107,6 +108,22 @@ function parseAssignments(original) {
         ${items.map(i => `<div class="lp-item">${i}</div>`).join("")}
     `;
 }
+
+function parseMessages(original) {
+    const box = original.querySelector("#s_m_Content_s_m_Beskeder");
+    if (!box) return;
+
+    const msgs = [...box.querySelectorAll("tr")].map(row => row.innerText.trim());
+
+    const target = document.querySelector("#lp-messages");
+    if (!target) return;
+
+    target.innerHTML = `
+        <h2>Unread Messages</h2>
+        ${msgs.map(m => `<div class="lp-item">${m}</div>`).join("")}
+    `;
+}
+
 
 function loadForsideData(original) {
     parseToday(original);

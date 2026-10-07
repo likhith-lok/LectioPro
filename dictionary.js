@@ -1,4 +1,4 @@
-export const dictionary = {
+const dictionary = {
     "Lectio": "Lectio",
     "Skema": "Schedule",
     "Ugeskema": "Weekly schedule",
@@ -334,6 +334,6 @@ export const dictionary = {
     "Åbn besked": "Open message",
     "Markér som læst": "Mark as read",
     "Markér som ulæst": "Mark as unread"
-  };
+};
 
-  export {dictionary};
+export {dictionary};

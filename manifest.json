@@ -12,6 +12,9 @@
   ],
   "content_scripts": [
     {
+        
+        "all_frames": true,
+
       "matches": [
         "https://lectio.dk/*",
         "https://www.lectio.dk/*"
