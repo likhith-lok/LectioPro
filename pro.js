@@ -2,6 +2,19 @@
 import { dictionary } from "./dictionary.js";
 
 
+
+//document.querySelector(".ls-master-header-institution-name").style.display = "none";
+
+
+if (window.location.pathname.endsWith("forside.aspx")) {
+    const el = document.querySelector(".ls-master-header-institution-name");
+    if (el) {
+        el.textContent = "LectioPro";
+        el.classList.add("lp-header-name");
+    }
+}
+
+
 function translateText(text) {
     const trimmed = text.trim();
 
