@@ -335,3 +335,5 @@ export const dictionary = {
     "Markér som læst": "Mark as read",
     "Markér som ulæst": "Mark as unread"
   };
+
+  export {dictionary};

@@ -1,6 +1,7 @@
 
 import { dictionary } from "./dictionary.js";
 
+
 function translateText(text) {
     const trimmed = text.trim();
 
@@ -40,28 +41,64 @@ function translatePage() {
     }
 }
 
-function applyForsideUI() {
-    // Inject CSS
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = chrome.runtime.getURL("forside.css");
-    document.head.appendChild(link);
+function wipeForside() {
+    document.body.innerHTML = "";
+}
 
-    // Hide original Lectio boxes
-    document.querySelectorAll(".s2box, .s2bgbox").forEach(el => {
-        el.style.display = "none";
-    });
+function replaceForsideUI() {
+    const original = document.documentElement.cloneNode(true);
+    wipeForside();
+    buildForsideUI(original);
+}
 
-    // Create your own dashboard
-    const dash = document.createElement("div");
-    dash.id = "modern-forside";
-    dash.innerHTML = `
-        <h1>Dashboard</h1>
-        <div class="card">Today's Schedule</div>
-        <div class="card">Upcoming Assignments</div>
-        <div class="card">Unread Messages</div>
+function buildForsideUI(original) {
+    const root = document.createElement("div");
+    root.id = "lp-forside";
+
+    root.innerHTML = `
+        <div class="lp-header">Dashboard</div>
+
+        <div class="lp-section" id="lp-today"></div>
+        <div class="lp-section" id="lp-assignments"></div>
+        <div class="lp-section" id="lp-messages"></div>
     `;
-    document.body.prepend(dash);
+
+    document.body.appendChild(root);
+
+    // Fill sections with parsed data
+    loadForsideData(original);
+}
+
+function parseToday(original) {
+    const todayBox = original.querySelector("#s_m_Content_s_m_DagligtIndhold");
+    if (!todayBox) return;
+
+    const lessons = [...todayBox.querySelectorAll("tr")].map(row => row.innerText.trim());
+
+    const target = document.querySelector("#lp-today");
+    target.innerHTML = `
+        <h2>Today's Schedule</h2>
+        ${lessons.map(l => `<div class="lp-item">${l}</div>`).join("")}
+    `;
+}
+
+function parseAssignments(original) {
+    const box = original.querySelector("#s_m_Content_s_m_Opgaver");
+    if (!box) return;
+
+    const items = [...box.querySelectorAll("tr")].map(row => row.innerText.trim());
+
+    const target = document.querySelector("#lp-assignments");
+    target.innerHTML = `
+        <h2>Upcoming Assignments</h2>
+        ${items.map(i => `<div class="lp-item">${i}</div>`).join("")}
+    `;
+}
+
+function loadForsideData(original) {
+    parseToday(original);
+    parseAssignments(original);
+    parseMessages(original);
 }
 
 
@@ -73,15 +110,14 @@ function applyForsideUI() {
 
 
 
-
-if (window.location.pathname.endsWith("forside.aspx")) {
-    applyForsideUI();
-}
 
 
 if (window.location.pathname.startsWith("https://www.lectio.dk/")) {
     translatePage();
 }
 
+if (window.location.pathname.endsWith("forside.aspx")) {
+    replaceForsideUI();
+}
 
 
