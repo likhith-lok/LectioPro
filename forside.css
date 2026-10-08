@@ -557,6 +557,17 @@ body.dark-mode .lc-document-slide a {
     color: #8cddd0 !important;
 }
 
+body.dark-mode blockquote[data-lc-role="note"] {
+    border-left: 3px solid #61c9b6 !important;
+    background-color: #263343 !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode blockquote[data-lc-role="note"] p {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
 body.dark-mode .ls-paper h1,
 body.dark-mode .ls-paper h2,
 body.dark-mode .ls-paper h3,
