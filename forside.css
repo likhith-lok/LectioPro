@@ -521,15 +521,40 @@ body.dark-mode .norecord {
 
 /* Homework and class-activity pages use a paper surface outside the island layout. */
 body.dark-mode .ls-paper,
+body.dark-mode .ls-paper-header,
 body.dark-mode #homeworkContentContainer,
 body.dark-mode #s_m_Content_Content_tocAndToolbar_actHeader,
 body.dark-mode #s_m_Content_Content_tocAndToolbar_inlineHomeworkDiv,
-body.dark-mode .ls-acr-display {
+body.dark-mode .ls-acr-display,
+body.dark-mode .cke_wysiwyg_div.cke_editable,
+body.dark-mode [contenteditable="true"].lc-display-fragment {
     border-color: var(--lp-border) !important;
     background-color: #202b3b !important;
     background-image: none !important;
     color: var(--lp-text) !important;
     box-shadow: none !important;
+}
+
+body.dark-mode .cke_wysiwyg_div.cke_editable *,
+body.dark-mode [contenteditable="true"].lc-display-fragment * {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+body.dark-mode .lc-document-slide {
+    border-color: var(--lp-border) !important;
+    background-color: #202b3b !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .lc-document-slide * {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+
+body.dark-mode .lc-document-slide a {
+    color: #8cddd0 !important;
 }
 
 body.dark-mode .ls-paper h1,
