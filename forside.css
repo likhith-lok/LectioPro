@@ -519,6 +519,42 @@ body.dark-mode .norecord {
     color: var(--lp-muted) !important;
 }
 
+/* Homework and class-activity pages use a paper surface outside the island layout. */
+body.dark-mode .ls-paper,
+body.dark-mode #homeworkContentContainer,
+body.dark-mode #s_m_Content_Content_tocAndToolbar_actHeader,
+body.dark-mode #s_m_Content_Content_tocAndToolbar_inlineHomeworkDiv,
+body.dark-mode .ls-acr-display {
+    border-color: var(--lp-border) !important;
+    background-color: #202b3b !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+    box-shadow: none !important;
+}
+
+body.dark-mode .ls-paper h1,
+body.dark-mode .ls-paper h2,
+body.dark-mode .ls-paper h3,
+body.dark-mode .ls-paper p,
+body.dark-mode .ls-paper li,
+body.dark-mode .ls-paper label,
+body.dark-mode .ls-paper .ls-section-title-heading,
+body.dark-mode .ls-paper .s2skemabrikcontent {
+    border-color: var(--lp-border) !important;
+    background-color: transparent !important;
+    color: var(--lp-text) !important;
+}
+
+body.dark-mode .ls-paper a:not(.s2skemabrik) {
+    color: #8cddd0 !important;
+}
+
+body.dark-mode .ls-paper .s2skemabrik.s2normal {
+    border-color: var(--lp-border) !important;
+    background-color: #263b3a !important;
+    color: var(--lp-text) !important;
+}
+
 body.dark-mode .title-large {
     color: var(--lp-accent) !important;
 }
