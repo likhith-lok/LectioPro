@@ -723,6 +723,16 @@ body.dark-mode .s2skemabrikcontainer {
     color: var(--lp-text) !important;
 }
 
+/* The 4- and 16-week timetable use separate grid cells from the daily schedule. */
+body.dark-mode .skemaweekSkemabrikContainer,
+body.dark-mode .skemaweekWeekDay,
+body.dark-mode .skemaweekModuleContainer {
+    border-color: var(--lp-border) !important;
+    background-color: #252c35 !important;
+    background-image: none !important;
+    color: var(--lp-text) !important;
+}
+
 body.dark-mode .s2module-bg {
     border-color: var(--lp-border) !important;
     background-color: #29323d !important;

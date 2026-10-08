@@ -80,6 +80,7 @@ const dictionary = {
     "Aktivitet": "Activity",
     "Begivenhed": "Event",
     "Uge": "Week",
+    "Uger": "Weeks",
     "Ugeplan": "Weekly plan",
     "I dag": "Today",
     "I morgen": "Tomorrow",
